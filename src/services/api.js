@@ -2,7 +2,7 @@ import axios from "axios";
 import { selectUserAgent } from "../utils/agent";
 
 export const animeAPI = axios.create({
-  baseURL: "http://appanimeplus.tk/",
+  baseURL: "https://appanimeplus.tk",
 });
 
 animeAPI.interceptors.request.use(async (config) => {

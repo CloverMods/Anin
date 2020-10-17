@@ -96,6 +96,7 @@ export const ImgAnime = styled.div`
 
 export const AnimeItem = styled.li`
   width: 180px;
+  min-height: 200px;
   cursor: pointer;
   transition: all 0.2s ease-out;
 

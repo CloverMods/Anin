@@ -27,14 +27,20 @@ function Home() {
     setShowPlayer(!showPlayer);
   }
 
+  React.useEffect(() => {
+    async function loadPopular() {
+      const { data } = await animeAPI.get("?populares");
+      setAnimes(data.slice(0, 10));
+    }
+    loadPopular();
+  }, []);
+
   async function getAnimes(e) {
     e.preventDefault();
     const query = searchValue.current.value.replace(/[^a-zA-Zs]/g, "_");
 
     if (query !== "") {
-      const { data } = await animeAPI.get(
-        `https://appanimeplus.tk/api-animesbr-10.php?letra=${query}`
-      );
+      const { data } = await animeAPI.get(`?letra=${query}`);
 
       setAnimes(data);
       /*   console.log(data); */
@@ -43,9 +49,7 @@ function Home() {
 
   React.useEffect(() => {
     async function getEps() {
-      const { data } = await animeAPI.get(
-        `https://appanimeplus.tk/api-animesbr-10.php?cat_id=${selected.id}`
-      );
+      const { data } = await animeAPI.get(`?cat_id=${selected.id}`);
       /*      console.log(data); */
       setEps(data);
     }
@@ -55,9 +59,7 @@ function Home() {
 
   React.useEffect(() => {
     async function getCurrentEp() {
-      const { data } = await animeAPI.get(
-        `https://appanimeplus.tk/api-animesbr-10.php?episodios=${currentEp.video_id}`
-      );
+      const { data } = await animeAPI.get(`?episodios=${currentEp.video_id}`);
       if (data) {
         /* console.log(data[0]); */
         setCurrentEpURL(
@@ -83,7 +85,7 @@ function Home() {
         </form>
       </SearchBox>
 
-      {animes && animes.length > 0 && !showPlayer ? (
+      {animes?.length > 0 && !showPlayer ? (
         <ListContainer>
           <h1>Escolha o anime</h1>
           <AnimeList>
@@ -105,7 +107,7 @@ function Home() {
         <span>Nenhum resultado encontrado</span>
       )}
 
-      {eps && !showPlayer && (
+      {eps && !showPlayer ? (
         <>
           <h1>Escolha um episódio</h1>
           <EpsContainer>
@@ -124,6 +126,8 @@ function Home() {
             </ListEps>
           </EpsContainer>
         </>
+      ) : (
+        ""
       )}
 
       <VideoContainer isVisible={showPlayer}>

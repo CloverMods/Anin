@@ -12,8 +12,8 @@ export const final_agents = [
   "Mozilla/5.0 (Linux; Android 6.0.1; SM-G935S Build/MMB29K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Mobile Safari/537.36",
 ];
 
-export function selectUserAgent(array) {
-  var index = Math.floor(Math.random() * array.length);
-
-  return index;
+export function selectUserAgent() {
+  var index = Math.floor(Math.random() * final_agents.length);
+  /* console.log(index + final_agents[index]); */
+  return final_agents[index];
 }

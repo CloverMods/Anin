@@ -29,7 +29,7 @@ function Home() {
 
   React.useEffect(() => {
     async function loadPopular() {
-      const { data } = await animeAPI.get("?populares");
+      const { data } = await animeAPI.get("api-animesbr-10.php?populares");
       setAnimes(data.slice(0, 10));
     }
     loadPopular();
@@ -40,7 +40,7 @@ function Home() {
     const query = searchValue.current.value.replace(/[^a-zA-Zs]/g, "_");
 
     if (query !== "") {
-      const { data } = await animeAPI.get(`?letra=${query}`);
+      const { data } = await animeAPI.get(`api-animesbr-10.php?letra=${query}`);
 
       setAnimes(data);
       /*   console.log(data); */
@@ -49,7 +49,9 @@ function Home() {
 
   React.useEffect(() => {
     async function getEps() {
-      const { data } = await animeAPI.get(`?cat_id=${selected.id}`);
+      const { data } = await animeAPI.get(
+        `api-animesbr-10.php?cat_id=${selected.id}`
+      );
       /*      console.log(data); */
       setEps(data);
     }
@@ -59,7 +61,9 @@ function Home() {
 
   React.useEffect(() => {
     async function getCurrentEp() {
-      const { data } = await animeAPI.get(`?episodios=${currentEp.video_id}`);
+      const { data } = await animeAPI.get(
+        `api-animesbr-10.php?episodios=${currentEp.video_id}`
+      );
       if (data) {
         /* console.log(data[0]); */
         setCurrentEpURL(
